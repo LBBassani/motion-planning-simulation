@@ -28,8 +28,8 @@ import gobject
 from frame import *
 from painter import *
 
-DEFAULT_VIEW_PIX_W = 800    # pixels
-DEFAULT_VIEW_PIX_H = 800    # pixels
+DEFAULT_VIEW_PIX_W = 400    # pixels
+DEFAULT_VIEW_PIX_H = 400    # pixels
 DEFAULT_ZOOM = 100          # pixels per meter
 
 # user response codes for file chooser dialog buttons

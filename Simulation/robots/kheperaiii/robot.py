@@ -17,17 +17,16 @@
 # Email mccrea.engineering@gmail.com for questions, comments, or to report bugs.
 
 
-
-
-
 from math import *
-from differential_drive_dynamics import *
-from polygon import *
-from pose import *
-from proximity_sensor import *
-from robot_supervisor_interface import *
-from supervisor import *
-from wheel_encoder import *
+from ...simulator.models.differential_drive_dynamics import *
+from ...simulator.models.polygon import *
+from ...simulator.models.pose import *
+from ...simulator.models.proximity_sensor import *
+from ...simulator.models.robot_supervisor_interface import *
+from ...simulator.models.supervisor import *
+from ...simulator.models.wheel_encoder import *
+from ...simulator.models.robot import Robot
+from .controllers import *
 
 # Khepera III Properties
 K3_WHEEL_RADIUS = 0.021         # meters
@@ -61,7 +60,7 @@ K3_SENSOR_POSES = [[ -0.038,  0.048,  128 ], # x, y, theta_degrees
                    [ -0.038, -0.048, -128 ],
                    [ -0.048,  0.000,  180 ]]
 
-class Robot: # Khepera III robot 
+class Kheperaiii(Robot): # Khepera III robot 
   
   def __init__( self ):
     # geometry
@@ -91,8 +90,14 @@ class Robot: # Khepera III robot
     self.dynamics = DifferentialDriveDynamics( self.wheel_radius, self.wheel_base_length )
 
     # supervisor
+    controllers = dict()
+    controllers["GoToAngleController"] = KheperaiiiGoToAngleController
+    controllers["GoToGoalController"] = KheperaiiiGoToGoalController
+    controllers["AvoidObstaclesController"] = KheperaiiiAvoidObstaclesController
+    controllers["GTGAndAOController"] = KheperaiiiGTGAndAOController
+    controllers["FollowWallController"] = KheperaiiiFollowWallController
     self.supervisor = Supervisor( RobotSupervisorInterface( self ),
-                                  K3_WHEEL_RADIUS, K3_WHEEL_BASE_LENGTH, K3_WHEEL_TICKS_PER_REV, K3_SENSOR_POSES, K3_SENSOR_MAX_RANGE )
+                                  K3_WHEEL_RADIUS, K3_WHEEL_BASE_LENGTH, K3_WHEEL_TICKS_PER_REV, K3_SENSOR_POSES, K3_SENSOR_MAX_RANGE, controllers )
     
     ## initialize state
     # set wheel drive rates (rad/s)

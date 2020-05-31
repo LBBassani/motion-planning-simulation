@@ -23,16 +23,16 @@
 from math import *
 
 from ..utils import linalg2_util as linalg
-from control_state import *
-from pose import *
-from supervisor_controller_interface import *
-from supervisor_state_machine import *
+from .control_state import *
+from .pose import *
+from .supervisor_controller_interface import *
+from .supervisor_state_machine import *
 
-from controllers.avoid_obstacles_controller import *
-from controllers.follow_wall_controller import *
-from controllers.go_to_angle_controller import *
-from controllers.go_to_goal_controller import *
-from controllers.gtg_and_ao_controller import *
+from .controllers.avoid_obstacles_controller import *
+from .controllers.follow_wall_controller import *
+from .controllers.go_to_angle_controller import *
+from .controllers.go_to_goal_controller import *
+from .controllers.gtg_and_ao_controller import *
 
 # control parameters
 K3_TRANS_VEL_LIMIT = 0.3148     # m/s
@@ -46,6 +46,7 @@ class Supervisor:
                       wheel_encoder_ticks_per_rev,                # the number of wheel encoder ticks per revolution of a drive wheel
                       sensor_placements,                          # placement pose of the sensors on the robot body
                       sensor_range,                               # max detection range of the sensors
+                      controllers,
                       goal = [ 0.0, 0.0 ],                        # the goal to which this supervisor will guide the robot
                       initial_pose_args = [ 0.0, 0.0, 0.0 ] ):    # the pose the robot will have when control begins
     
@@ -69,11 +70,11 @@ class Supervisor:
 
     # controllers
     controller_interface = SupervisorControllerInterface( self )
-    self.go_to_angle_controller = GoToAngleController( controller_interface )
-    self.go_to_goal_controller = GoToGoalController( controller_interface )
-    self.avoid_obstacles_controller = AvoidObstaclesController( controller_interface )
-    self.gtg_and_ao_controller = GTGAndAOController( controller_interface )
-    self.follow_wall_controller = FollowWallController( controller_interface )
+    self.go_to_angle_controller = controllers["GoToAngleController"]( controller_interface )
+    self.go_to_goal_controller = controllers["GoToGoalController"]( controller_interface )
+    self.avoid_obstacles_controller = controllers["AvoidObstaclesController"]( controller_interface )
+    self.gtg_and_ao_controller = controllers["GTGAndAOController"]( controller_interface )
+    self.follow_wall_controller = controllers["FollowWallController"]( controller_interface )
 
     # state machine
     self.state_machine = SupervisorStateMachine( self )

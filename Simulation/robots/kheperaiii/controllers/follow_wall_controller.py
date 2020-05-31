@@ -26,11 +26,12 @@ FWDIR_RIGHT = 1
 
 from math import *
 
-from ..control_state import *
-from ...utils import linalg2_util as linalg
-from ...sim_exceptions.goal_reached_exception import *
+from ....simulator.models.control_state import *
+from ....simulator.models.controllers.follow_wall_controller import FollowWallController
+from ....simulator.utils import linalg2_util as linalg
+from ....simulator.sim_exceptions.goal_reached_exception import *
 
-class FollowWallController:
+class KheperaiiiFollowWallController(FollowWallController):
 
   def __init__( self, supervisor ):
     # bind the supervisor

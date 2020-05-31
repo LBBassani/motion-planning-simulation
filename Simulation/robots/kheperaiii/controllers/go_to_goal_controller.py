@@ -22,10 +22,11 @@
 
 from math import *
 
-from ...utils import linalg2_util as linalg
-from ...utils import math_util
+from ....simulator.models.controllers.go_to_goal_controller import GoToGoalController
+from ....simulator.utils import linalg2_util as linalg
+from ....simulator.utils import math_util
 
-class GoToGoalController:
+class KheperaiiiGoToGoalController(GoToGoalController):
 
   def __init__( self, supervisor ):
     # bind the supervisor

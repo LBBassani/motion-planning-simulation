@@ -19,24 +19,23 @@
 # Email mccrea.engineering@gmail.com for questions, comments, or to report bugs.
 
 
-
-
+from Simulation.robots.kheperaiii.robot import Kheperaiii
 
 import pygtk
 pygtk.require( '2.0' )
 import gtk
 import gobject
 
-from simulator.gui import frame
-from simulator.gui import viewer
+from Simulation.simulator.gui import frame
+from Simulation.simulator.gui import viewer
 
-from simulator.models.map_manager import *
-from simulator.models.robot import *
-from simulator.models.world import *
+from Simulation.simulator.models.map_manager import *
+from Simulation.simulator.models.robot import *
+from Simulation.simulator.models.world import *
 
-from simulator.views.world_view import *
+from Simulation.simulator.views.world_view import *
 
-from simulator.sim_exceptions.collision_exception import *
+from Simulation.simulator.sim_exceptions.collision_exception import *
 
 REFRESH_RATE = 20.0 # hertz
 
@@ -67,7 +66,7 @@ class Simulator:
     self.world = World( self.period )
     
     # create the robot
-    robot = Robot()
+    robot = Kheperaiii()
     self.world.add_robot( robot )
     
     # generate a random environment
