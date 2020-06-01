@@ -17,23 +17,32 @@
 # Email mccrea.engineering@gmail.com for questions, comments, or to report bugs.
 
 
-
-
-
-from math import *
-from differential_drive_dynamics import *
-from polygon import *
-from pose import *
-from proximity_sensor import *
-from robot_supervisor_interface import *
-from supervisor import *
-from wheel_encoder import *
+from math import radians
+from srimulatorcore.models.differential_drive_dynamics import DifferentialDriveDynamics
+from srimulatorcore.models.polygon import Polygon
+from srimulatorcore.models.pose import Pose
+from srimulatorcore.models.proximity_sensor import ProximitySensor
+from srimulatorcore.models.robot_supervisor_interface import RobotSupervisorInterface
+from srimulatorcore.models.supervisor import Supervisor
+from srimulatorcore.models.wheel_encoder import WheelEncoder
+from srimulatorcore.models.robot import Robot
+from .controllers import *
 
 # Khepera III Properties
 K3_WHEEL_RADIUS = 0.021         # meters
 K3_WHEEL_BASE_LENGTH = 0.0885   # meters
 K3_WHEEL_TICKS_PER_REV = 2765
 K3_MAX_WHEEL_DRIVE_RATE = 15.0  # rad/s
+
+
+# Khepera III Dimensions
+K3_TOP_PLATE = [[ -0.031,  0.043 ],
+                [ -0.031, -0.043 ],
+                [  0.033, -0.043 ],
+                [  0.052, -0.021 ],
+                [  0.057,  0.000 ],
+                [  0.052,  0.021 ],
+                [  0.033,  0.043 ]]
 
 # Khepera III Dimensions
 K3_BOTTOM_PLATE = [[ -0.024,  0.064 ],
@@ -61,7 +70,7 @@ K3_SENSOR_POSES = [[ -0.038,  0.048,  128 ], # x, y, theta_degrees
                    [ -0.038, -0.048, -128 ],
                    [ -0.048,  0.000,  180 ]]
 
-class Robot: # Khepera III robot 
+class Kheperaiii(Robot): # Khepera III robot 
   
   def __init__( self ):
     # geometry
@@ -91,8 +100,14 @@ class Robot: # Khepera III robot
     self.dynamics = DifferentialDriveDynamics( self.wheel_radius, self.wheel_base_length )
 
     # supervisor
+    controllers = dict()
+    controllers["GoToAngleController"] = KheperaiiiGoToAngleController
+    controllers["GoToGoalController"] = KheperaiiiGoToGoalController
+    controllers["AvoidObstaclesController"] = KheperaiiiAvoidObstaclesController
+    controllers["GTGAndAOController"] = KheperaiiiGTGAndAOController
+    controllers["FollowWallController"] = KheperaiiiFollowWallController
     self.supervisor = Supervisor( RobotSupervisorInterface( self ),
-                                  K3_WHEEL_RADIUS, K3_WHEEL_BASE_LENGTH, K3_WHEEL_TICKS_PER_REV, K3_SENSOR_POSES, K3_SENSOR_MAX_RANGE )
+                                  K3_WHEEL_RADIUS, K3_WHEEL_BASE_LENGTH, K3_WHEEL_TICKS_PER_REV, K3_SENSOR_POSES, K3_SENSOR_MAX_RANGE, controllers )
     
     ## initialize state
     # set wheel drive rates (rad/s)
@@ -124,3 +139,6 @@ class Robot: # Khepera III robot
     # set drive rates
     self.left_wheel_drive_rate = v_l
     self.right_wheel_drive_rate = v_r
+
+  def get_top_plate( self ):
+    return K3_TOP_PLATE

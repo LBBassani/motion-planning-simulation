@@ -16,9 +16,9 @@
 # 
 # Email mccrea.engineering@gmail.com for questions, comments, or to report bugs.
 
+from .avoid_obstacles_controller import KheperaiiiAvoidObstaclesController
+from .follow_wall_controller import KheperaiiiFollowWallController
+from .go_to_angle_controller import KheperaiiiGoToAngleController
+from .go_to_goal_controller import KheperaiiiGoToGoalController
+from .gtg_and_ao_controller import KheperaiiiGTGAndAOController
 
-
-
-
-class GoalReachedException( Exception ):
-  pass

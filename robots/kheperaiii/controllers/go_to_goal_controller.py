@@ -17,15 +17,13 @@
 # Email mccrea.engineering@gmail.com for questions, comments, or to report bugs.
 
 
+from math import atan2
 
+from srimulatorcore.models.controllers.go_to_goal_controller import GoToGoalController
+from srimulatorcore.utils import linalg2_util as linalg
+from srimulatorcore.utils import math_util
 
-
-from math import *
-
-from ...utils import linalg2_util as linalg
-from ...utils import math_util
-
-class GoToGoalController:
+class KheperaiiiGoToGoalController(GoToGoalController):
 
   def __init__( self, supervisor ):
     # bind the supervisor
@@ -89,21 +87,21 @@ class GoToGoalController:
     return goal
 
   def _print_vars( self, eP, eI, eD, v, omega ):
-    print "\n\n"
-    print "=============="
-    print "ERRORS:"
-    print "eP: " + str( eP )
-    print "eI: " + str( eI )
-    print "eD: " + str( eD )
-    print ""
-    print "CONTROL COMPONENTS:"
-    print "kP * eP = " + str( self.kP ) + " * " + str( eP )
-    print "= " + str( self.kP * eP )
-    print "kI * eI = " + str( self.kI ) + " * " + str( eI )
-    print "= " + str( self.kI * eI )
-    print "kD * eD = " + str( self.kD ) + " * " + str( eD )
-    print "= " + str( self.kD * eD )
-    print ""
-    print "OUTPUTS:"
-    print "omega: " + str( omega )
-    print "v    : " + str( v )
+    print ("\n\n")
+    print ("==============")
+    print ("ERRORS:")
+    print ("eP: " + str( eP ))
+    print ("eI: " + str( eI ))
+    print ("eD: " + str( eD ))
+    print ("")
+    print ("CONTROL COMPONENTS:")
+    print ("kP * eP = " + str( self.kP ) + " * " + str( eP ))
+    print ("= " + str( self.kP * eP ))
+    print ("kI * eI = " + str( self.kI ) + " * " + str( eI ))
+    print ("= " + str( self.kI * eI ))
+    print ("kD * eD = " + str( self.kD ) + " * " + str( eD ))
+    print ("= " + str( self.kD * eD ))
+    print ("")
+    print ("OUTPUTS:")
+    print ("omega: " + str( omega ))
+    print ("v    : " + str( v ))

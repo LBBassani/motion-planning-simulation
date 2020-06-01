@@ -19,10 +19,10 @@
 
 
 
+from srimulatorcore.models.controllers.go_to_angle_controller import GoToAngleController
+from srimulatorcore.utils import math_util
 
-from ...utils import math_util
-
-class GoToAngleController:
+class KheperaiiiGoToAngleController(GoToAngleController):
 
   def __init__( self, supervisor ):
     # bind the supervisor

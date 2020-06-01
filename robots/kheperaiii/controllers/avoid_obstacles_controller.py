@@ -16,16 +16,13 @@
 # 
 # Email mccrea.engineering@gmail.com for questions, comments, or to report bugs.
 
+from math import atan2, pi
 
+from srimulatorcore.models.controllers.avoid_obstacles_controller import AvoidObstaclesController
+from srimulatorcore.utils import linalg2_util as linalg
+from srimulatorcore.utils import math_util
 
-
-
-from math import *
-
-from ...utils import linalg2_util as linalg
-from ...utils import math_util
-
-class AvoidObstaclesController:
+class KheperaiiiAvoidObstaclesController(AvoidObstaclesController):
 
   def __init__( self, supervisor ):
     # bind the supervisor
@@ -96,7 +93,6 @@ class AvoidObstaclesController:
     sensor_distances = self.supervisor.proximity_sensor_distances()
 
     # calculate the position of detected obstacles and find an avoidance vector
-    robot_pos, robot_theta = self.supervisor.estimated_pose().vunpack()
     for i in range( len( sensor_distances ) ):
       # calculate the position of the obstacle
       sensor_pos, sensor_theta = self.proximity_sensor_placements[i].vunpack()
@@ -111,21 +107,21 @@ class AvoidObstaclesController:
     return ao_heading_vector, obstacle_vectors
 
   def _print_vars( self, eP, eI, eD, v, omega ):
-    print "\n\n"
-    print "=============="
-    print "ERRORS:"
-    print "eP: " + str( eP )
-    print "eI: " + str( eI )
-    print "eD: " + str( eD )
-    print ""
-    print "CONTROL COMPONENTS:"
-    print "kP * eP = " + str( self.kP ) + " * " + str( eP )
-    print "= " + str( self.kP * eP )
-    print "kI * eI = " + str( self.kI ) + " * " + str( eI )
-    print "= " + str( self.kI * eI )
-    print "kD * eD = " + str( self.kD ) + " * " + str( eD )
-    print "= " + str( self.kD * eD )
-    print ""
-    print "OUTPUTS:"
-    print "omega: " + str( omega )
-    print "v    : " + str( v )
+    print ("\n\n")
+    print ("==============")
+    print ("ERRORS:")
+    print ("eP: " + str( eP ))
+    print ("eI: " + str( eI ))
+    print ("eD: " + str( eD ))
+    print ("")
+    print ("CONTROL COMPONENTS:")
+    print ("kP * eP = " + str( self.kP ) + " * " + str( eP ))
+    print ("= " + str( self.kP * eP ))
+    print ("kI * eI = " + str( self.kI ) + " * " + str( eI ))
+    print ("= " + str( self.kI * eI ))
+    print ("kD * eD = " + str( self.kD ) + " * " + str( eD ))
+    print ("= " + str( self.kD * eD ))
+    print ("")
+    print ("OUTPUTS:")
+    print ("omega: " + str( omega ))
+    print ("v    : " + str( v ))

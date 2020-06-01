@@ -17,24 +17,22 @@
 # Email mccrea.engineering@gmail.com for questions, comments, or to report bugs.
 
 
+from math import atan2, pi
 
+from srimulatorcore.models.controllers.gtg_and_ao_controller import GTGAndAOController
+from srimulatorcore.utils import linalg2_util as linalg
+from .avoid_obstacles_controller import KheperaiiiAvoidObstaclesController
+from .go_to_goal_controller import KheperaiiiGoToGoalController
 
-
-from math import *
-
-from ...utils import linalg2_util as linalg
-from .avoid_obstacles_controller import *
-from go_to_goal_controller import *
-
-class GTGAndAOController:
+class KheperaiiiGTGAndAOController(GTGAndAOController):
 
   def __init__( self, supervisor ):
     # bind the supervisor
     self.supervisor = supervisor
 
     # initialize controllers to blend
-    self.go_to_goal_controller = GoToGoalController( supervisor )
-    self.avoid_obstacles_controller = AvoidObstaclesController( supervisor )
+    self.go_to_goal_controller = KheperaiiiGoToGoalController( supervisor )
+    self.avoid_obstacles_controller = KheperaiiiAvoidObstaclesController( supervisor )
 
     # sensor gains (weights)
     self.avoid_obstacles_controller.sensor_gains = [
@@ -103,21 +101,21 @@ class GTGAndAOController:
     # self._print_vars( eP, eI, eD, v, omega )
 
   def _print_vars( self, eP, eI, eD, v, omega ):
-    print "\n\n"
-    print "=============="
-    print "ERRORS:"
-    print "eP: " + str( eP )
-    print "eI: " + str( eI )
-    print "eD: " + str( eD )
-    print ""
-    print "CONTROL COMPONENTS:"
-    print "kP * eP = " + str( self.kP ) + " * " + str( eP )
-    print "= " + str( self.kP * eP )
-    print "kI * eI = " + str( self.kI ) + " * " + str( eI )
-    print "= " + str( self.kI * eI )
-    print "kD * eD = " + str( self.kD ) + " * " + str( eD )
-    print "= " + str( self.kD * eD )
-    print ""
-    print "OUTPUTS:"
-    print "omega: " + str( omega )
-    print "v    : " + str( v )
+    print ("\n\n")
+    print ("==============")
+    print ("ERRORS:")
+    print ("eP: " + str( eP ))
+    print ("eI: " + str( eI ))
+    print ("eD: " + str( eD ))
+    print ("")
+    print ("CONTROL COMPONENTS:")
+    print ("kP * eP = " + str( self.kP ) + " * " + str( eP ))
+    print ("= " + str( self.kP * eP ))
+    print ("kI * eI = " + str( self.kI ) + " * " + str( eI ))
+    print ("= " + str( self.kI * eI ))
+    print ("kD * eD = " + str( self.kD ) + " * " + str( eD ))
+    print ("= " + str( self.kD * eD ))
+    print ("")
+    print ("OUTPUTS:")
+    print ("omega: " + str( omega ))
+    print ("v    : " + str( v ))

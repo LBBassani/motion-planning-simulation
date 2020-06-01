@@ -19,30 +19,32 @@
 # Email mccrea.engineering@gmail.com for questions, comments, or to report bugs.
 
 
-
-
+from Simulation.robots.kheperaiii.robot import Kheperaiii
 
 import pygtk
 pygtk.require( '2.0' )
 import gtk
 import gobject
 
-from simulator.gui import frame
-from simulator.gui import viewer
+from Simulation.simulator.gui import frame
+from Simulation.simulator.gui import viewer
 
-from simulator.models.map_manager import *
-from simulator.models.robot import *
-from simulator.models.world import *
+from Simulation.simulator.models.map_manager import MapManager
+from Simulation.simulator.models.robot import Robot
+from Simulation.simulator.models.world import World
 
-from simulator.views.world_view import *
+from Simulation.simulator.views.world_view import WorldView
 
-from simulator.sim_exceptions.collision_exception import *
+from Simulation.simulator.sim_exceptions.collision_exception import CollisionException
+from Simulation.simulator.sim_exceptions.goal_reached_exception import GoalReachedException
 
 REFRESH_RATE = 20.0 # hertz
 
-class Simulator:
+class Rimulator:
 
   def __init__( self ):
+    self.is_running = False
+
     # create the GUI
     self.viewer = viewer.Viewer( self )
     
@@ -59,7 +61,7 @@ class Simulator:
     gtk.main()
     
     
-  def initialize_sim( self, random=False ):
+  def initialize_sim( self, robots, random=False ):
     # reset the viewer
     self.viewer.control_panel_state_init()
     
@@ -67,7 +69,7 @@ class Simulator:
     self.world = World( self.period )
     
     # create the robot
-    robot = Robot()
+    robot = Kheperaiii()
     self.world.add_robot( robot )
     
     # generate a random environment
@@ -84,22 +86,25 @@ class Simulator:
     
     
   def play_sim( self ):
-    gobject.source_remove( self.sim_event_source )  # this ensures multiple calls to play_sim do not speed up the simulator
+    self.is_running = True
     self._run_sim()
     self.viewer.control_panel_state_playing()
     
     
   def pause_sim( self ):
+    self.is_running = False
     gobject.source_remove( self.sim_event_source )
     self.viewer.control_panel_state_paused()
     
     
   def step_sim_once( self ):
-    self.pause_sim()
+    if self.is_running:
+      self.pause_sim()
     self._step_sim()
     
     
   def end_sim( self, alert_text='' ):
+    self.is_running = False
     gobject.source_remove( self.sim_event_source )
     self.viewer.control_panel_state_finished( alert_text )
     
@@ -145,7 +150,3 @@ class Simulator:
       
     # draw the resulting world
     self.draw_world()
-
-
-# RUN THE SIM:
-Simulator()
