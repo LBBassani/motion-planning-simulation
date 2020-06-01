@@ -17,27 +17,23 @@
 # Email mccrea.engineering@gmail.com for questions, comments, or to report bugs.
 
 
-class Robot:
 
-  def __init__( self ):
-    self.pose = Pose([0.0, 0.0, 0.0])
-    self.supervisor = None
-    self.global_geometry = None
-    self.geometry = None
 
-  # simulate the robot's motion over the given time interval
-  def step_motion( self, dt ):
-    raise(NotImplementedError)
-  
-  # set the drive rates (angular velocities) for this robot's wheels in rad/s 
-  def set_wheel_drive_rates( self, v_l, v_r ):
-    raise(NotImplementedError)
+from ....models.controllers.go_to_angle_controller import GoToAngleController
+from ....utils import math_util
 
-  def get_top_plate( self ):
-    raise(NotImplementedError)
+class KheperaiiiGoToAngleController(GoToAngleController):
 
-  def update_position( self, x, y):
-    self.pose.x = x
-    self.pose.y = y
-    self.global_geometry = self.geometry.get_transformation_to_pose( self.pose )
-    self.supervisor.update_position(x, y)
+  def __init__( self, supervisor ):
+    # bind the supervisor
+    self.supervisor = supervisor
+
+    # gains
+    self.k_p = 5.0
+
+  def execute( self, theta_d ):
+    theta = self.supervisor.estimated_pose().theta
+    e = math_util.normalize_angle( theta_d - theta )
+    omega = self.k_p * e
+
+    self.supervisor.set_outputs( 1.0, omega )

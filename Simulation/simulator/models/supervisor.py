@@ -95,6 +95,10 @@ class Supervisor:
     self.v_output = 0.0
     self.omega_output = 0.0
   
+  def update_position(self, x, y):
+    self.estimated_pose.x = x
+    self.estimated_pose.y = y
+
   # simulate this supervisor running for one time increment
   def step( self, dt ):
     # increment the internal clock time

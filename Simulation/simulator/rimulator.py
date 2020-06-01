@@ -1,33 +1,15 @@
-#!/usr/bin/env python
-
-# Sobot Rimulator - A Robot Programming Tool
-# Copyright (C) 2013-2014 Nicholas S. D. McCrea
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-# 
-# Email mccrea.engineering@gmail.com for questions, comments, or to report bugs.
-
-
-from Simulation.robots.kheperaiii.robot import Kheperaiii
 
 import pygtk
 pygtk.require( '2.0' )
 import gtk
 import gobject
 
-from Simulation.simulator.gui import frame
-from Simulation.simulator.gui import viewer
+# import default robot kherepa III
+from .sobots_samples.kheperaiii.kheperaiii import Kheperaiii
+
+# import gui classes
+from .gui.viewer import Viewer
+from .gui.frame import Frame
 
 from Simulation.simulator.models.map_manager import MapManager
 from Simulation.simulator.models.robot import Robot
@@ -42,11 +24,13 @@ REFRESH_RATE = 20.0 # hertz
 
 class Rimulator:
 
-  def __init__( self ):
+  def __init__( self, robot_types = [(Kheperaiii, (0,0))] ):
+
     self.is_running = False
+    self.robot_types = robot_types
 
     # create the GUI
-    self.viewer = viewer.Viewer( self )
+    self.viewer = Viewer( self )
     
     # create the map manager
     self.map_manager = MapManager()
@@ -61,7 +45,7 @@ class Rimulator:
     gtk.main()
     
     
-  def initialize_sim( self, robots, random=False ):
+  def initialize_sim( self, random=False ):
     # reset the viewer
     self.viewer.control_panel_state_init()
     
@@ -69,8 +53,11 @@ class Rimulator:
     self.world = World( self.period )
     
     # create the robot
-    robot = Kheperaiii()
-    self.world.add_robot( robot )
+    for robot_type in self.robot_types:
+      robot, rposition = robot_type
+      robot = robot()
+      robot.update_position(rposition[0], rposition[1])
+      self.world.add_robot( robot )
     
     # generate a random environment
     if random:
@@ -92,9 +79,10 @@ class Rimulator:
     
     
   def pause_sim( self ):
-    self.is_running = False
-    gobject.source_remove( self.sim_event_source )
-    self.viewer.control_panel_state_paused()
+    if self.is_running:
+      self.is_running = False
+      gobject.source_remove( self.sim_event_source )
+      self.viewer.control_panel_state_paused()
     
     
   def step_sim_once( self ):

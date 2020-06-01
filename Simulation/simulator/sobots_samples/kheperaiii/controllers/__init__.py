@@ -16,28 +16,9 @@
 # 
 # Email mccrea.engineering@gmail.com for questions, comments, or to report bugs.
 
+from .avoid_obstacles_controller import KheperaiiiAvoidObstaclesController
+from .follow_wall_controller import KheperaiiiFollowWallController
+from .go_to_angle_controller import KheperaiiiGoToAngleController
+from .go_to_goal_controller import KheperaiiiGoToGoalController
+from .gtg_and_ao_controller import KheperaiiiGTGAndAOController
 
-class Robot:
-
-  def __init__( self ):
-    self.pose = Pose([0.0, 0.0, 0.0])
-    self.supervisor = None
-    self.global_geometry = None
-    self.geometry = None
-
-  # simulate the robot's motion over the given time interval
-  def step_motion( self, dt ):
-    raise(NotImplementedError)
-  
-  # set the drive rates (angular velocities) for this robot's wheels in rad/s 
-  def set_wheel_drive_rates( self, v_l, v_r ):
-    raise(NotImplementedError)
-
-  def get_top_plate( self ):
-    raise(NotImplementedError)
-
-  def update_position( self, x, y):
-    self.pose.x = x
-    self.pose.y = y
-    self.global_geometry = self.geometry.get_transformation_to_pose( self.pose )
-    self.supervisor.update_position(x, y)
