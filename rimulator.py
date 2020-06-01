@@ -43,6 +43,8 @@ REFRESH_RATE = 20.0 # hertz
 class Simulator:
 
   def __init__( self ):
+    self.is_running = False
+
     # create the GUI
     self.viewer = viewer.Viewer( self )
     
@@ -84,22 +86,25 @@ class Simulator:
     
     
   def play_sim( self ):
-    gobject.source_remove( self.sim_event_source )  # this ensures multiple calls to play_sim do not speed up the simulator
+    self.is_running = True
     self._run_sim()
     self.viewer.control_panel_state_playing()
     
     
   def pause_sim( self ):
+    self.is_running = False
     gobject.source_remove( self.sim_event_source )
     self.viewer.control_panel_state_paused()
     
     
   def step_sim_once( self ):
-    self.pause_sim()
+    if self.is_running:
+      self.pause_sim()
     self._step_sim()
     
     
   def end_sim( self, alert_text='' ):
+    self.is_running = False
     gobject.source_remove( self.sim_event_source )
     self.viewer.control_panel_state_finished( alert_text )
     
