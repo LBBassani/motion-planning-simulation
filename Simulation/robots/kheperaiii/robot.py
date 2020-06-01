@@ -34,6 +34,16 @@ K3_WHEEL_BASE_LENGTH = 0.0885   # meters
 K3_WHEEL_TICKS_PER_REV = 2765
 K3_MAX_WHEEL_DRIVE_RATE = 15.0  # rad/s
 
+
+# Khepera III Dimensions
+K3_TOP_PLATE = [[ -0.031,  0.043 ],
+                [ -0.031, -0.043 ],
+                [  0.033, -0.043 ],
+                [  0.052, -0.021 ],
+                [  0.057,  0.000 ],
+                [  0.052,  0.021 ],
+                [  0.033,  0.043 ]]
+
 # Khepera III Dimensions
 K3_BOTTOM_PLATE = [[ -0.024,  0.064 ],
                    [  0.033,  0.064 ],
@@ -129,3 +139,6 @@ class Kheperaiii(Robot): # Khepera III robot
     # set drive rates
     self.left_wheel_drive_rate = v_l
     self.right_wheel_drive_rate = v_r
+
+  def get_top_plate( self ):
+    return K3_TOP_PLATE

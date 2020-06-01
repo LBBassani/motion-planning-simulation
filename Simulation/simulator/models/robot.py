@@ -31,3 +31,6 @@ class Robot:
   # set the drive rates (angular velocities) for this robot's wheels in rad/s 
   def set_wheel_drive_rates( self, v_l, v_r ):
     raise(NotImplementedError)
+
+  def get_top_plate( self ):
+    raise(NotImplementedError)
