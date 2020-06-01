@@ -41,8 +41,6 @@ class Rimulator:
     # gtk simulation event source - for simulation control
     self.sim_event_source = gobject.idle_add( self.initialize_sim, True ) # we use this opportunity to initialize the sim
     
-    # start gtk
-    gtk.main()
     
     
   def initialize_sim( self, random=False ):
@@ -54,10 +52,7 @@ class Rimulator:
     
     # create the robot
     for robot_type in self.robot_types:
-      robot, rposition = robot_type
-      robot = robot()
-      robot.update_position(rposition[0], rposition[1])
-      self.world.add_robot( robot )
+      self.update_robot(robot_type)
     
     # generate a random environment
     if random:
@@ -138,3 +133,16 @@ class Rimulator:
       
     # draw the resulting world
     self.draw_world()
+
+  def start_sobot_rimulator(self):
+    # start gtk
+    gtk.main()
+
+  def update_robot(self , robot_type):
+    robot, rposition = robot_type
+    robot = robot()
+    robot.update_position(rposition[0], rposition[1])
+    self.world.add_robot( robot )
+  
+  def add_robot(self, robot_type):
+    self.robot_types.append(robot_type)
