@@ -29,13 +29,14 @@ import gobject
 from Simulation.simulator.gui import frame
 from Simulation.simulator.gui import viewer
 
-from Simulation.simulator.models.map_manager import *
-from Simulation.simulator.models.robot import *
-from Simulation.simulator.models.world import *
+from Simulation.simulator.models.map_manager import MapManager
+from Simulation.simulator.models.robot import Robot
+from Simulation.simulator.models.world import World
 
-from Simulation.simulator.views.world_view import *
+from Simulation.simulator.views.world_view import WorldView
 
-from Simulation.simulator.sim_exceptions.collision_exception import *
+from Simulation.simulator.sim_exceptions.collision_exception import CollisionException
+from Simulation.simulator.sim_exceptions.goal_reached_exception import GoalReachedException
 
 REFRESH_RATE = 20.0 # hertz
 

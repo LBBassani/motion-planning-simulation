@@ -25,8 +25,8 @@ pygtk.require('2.0')
 import gtk
 import gobject
 
-from frame import *
-from painter import *
+from .frame import Frame
+from .painter import Painter
 
 DEFAULT_VIEW_PIX_W = 400    # pixels
 DEFAULT_VIEW_PIX_H = 400    # pixels

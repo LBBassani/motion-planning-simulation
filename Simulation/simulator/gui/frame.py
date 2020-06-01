@@ -22,8 +22,6 @@
 
 import pygtk
 
-from math import *
-
 class Frame:
   
   def __init__( self ):

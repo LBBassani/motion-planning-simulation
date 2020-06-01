@@ -17,14 +17,11 @@
 # Email mccrea.engineering@gmail.com for questions, comments, or to report bugs.
 
 
-
-
-
-from math import *
+from math import ceil, e
 from ..utils import linalg2_util as linalg
-from line_segment import *
-from pose import *
-from sensor import *
+from .line_segment import LineSegment
+from .pose import Pose
+from .sensor import Sensor
 
 MIN_READ_VALUE = 18
 MAX_READ_VALUE = 3960

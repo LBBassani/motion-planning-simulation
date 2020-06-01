@@ -21,7 +21,7 @@
 from ...utils import linalg2_util as linalg
 
 
-from ...models.control_state import *
+from ...models.control_state import ControlState
 
 VECTOR_LEN = 0.75 # length of heading vector
 

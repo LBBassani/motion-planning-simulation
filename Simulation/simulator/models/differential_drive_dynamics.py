@@ -17,11 +17,8 @@
 # Email mccrea.engineering@gmail.com for questions, comments, or to report bugs.
 
 
-
-
-
-from math import *
-from pose import *
+from math import sin, cos, pi
+from .pose import Pose
 
 class DifferentialDriveDynamics:
   

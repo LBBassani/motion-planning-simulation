@@ -17,9 +17,6 @@
 # Email mccrea.engineering@gmail.com for questions, comments, or to report bugs.
 
 
-
-
-
 from ..utils import geometrics_util as geometrics
 
 from ..sim_exceptions.collision_exception import *
@@ -69,7 +66,7 @@ class Physics():
             solid_polygon = solid.global_geometry
             
             if geometrics.check_nearness( detector_line, solid_polygon ): # don't bother testing objects that are not near each other
-              intersection_exists, intersection, d = geometrics.directed_line_segment_polygon_intersection( detector_line, solid_polygon )
+              intersection_exists, _, d = geometrics.directed_line_segment_polygon_intersection( detector_line, solid_polygon )
               
               if intersection_exists and d < dmin:
                 dmin = d

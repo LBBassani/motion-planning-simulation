@@ -16,12 +16,7 @@
 # 
 # Email mccrea.engineering@gmail.com for questions, comments, or to report bugs.
 
-
-
-
-
-from math import *
-from sensor import *
+from .sensor import Sensor
 
 class WheelEncoder( Sensor ):
 

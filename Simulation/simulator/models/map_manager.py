@@ -17,14 +17,12 @@
 # Email mccrea.engineering@gmail.com for questions, comments, or to report bugs.
 
 
-
-
-
-from random import *
+from math import sin, cos, pi
+from random import random, randrange
 import pickle
 
-from .polygon import *
-from .rectangle_obstacle import *
+from .polygon import Polygon
+from .rectangle_obstacle import RectangleObstacle, Pose
 
 from ..utils import geometrics_util as geometrics
 

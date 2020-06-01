@@ -17,12 +17,9 @@
 # Email mccrea.engineering@gmail.com for questions, comments, or to report bugs.
 
 
-
-
-
 from ..utils import linalg2_util as linalg
-from .proximity_sensor_view import *
-from .supervisor_view import *
+from .proximity_sensor_view import ProximitySensorView
+from .supervisor_view import SupervisorView
 
 
 class RobotView:

@@ -17,10 +17,7 @@
 # Email mccrea.engineering@gmail.com for questions, comments, or to report bugs.
 
 
-
-
-
-from math import *
+from math import atan2, pi
 
 from ....simulator.models.controllers.gtg_and_ao_controller import GTGAndAOController
 from ....simulator.utils import linalg2_util as linalg
@@ -104,21 +101,21 @@ class KheperaiiiGTGAndAOController(GTGAndAOController):
     # self._print_vars( eP, eI, eD, v, omega )
 
   def _print_vars( self, eP, eI, eD, v, omega ):
-    print "\n\n"
-    print "=============="
-    print "ERRORS:"
-    print "eP: " + str( eP )
-    print "eI: " + str( eI )
-    print "eD: " + str( eD )
-    print ""
-    print "CONTROL COMPONENTS:"
-    print "kP * eP = " + str( self.kP ) + " * " + str( eP )
-    print "= " + str( self.kP * eP )
-    print "kI * eI = " + str( self.kI ) + " * " + str( eI )
-    print "= " + str( self.kI * eI )
-    print "kD * eD = " + str( self.kD ) + " * " + str( eD )
-    print "= " + str( self.kD * eD )
-    print ""
-    print "OUTPUTS:"
-    print "omega: " + str( omega )
-    print "v    : " + str( v )
+    print ("\n\n")
+    print ("==============")
+    print ("ERRORS:")
+    print ("eP: " + str( eP ))
+    print ("eI: " + str( eI ))
+    print ("eD: " + str( eD ))
+    print ("")
+    print ("CONTROL COMPONENTS:")
+    print ("kP * eP = " + str( self.kP ) + " * " + str( eP ))
+    print ("= " + str( self.kP * eP ))
+    print ("kI * eI = " + str( self.kI ) + " * " + str( eI ))
+    print ("= " + str( self.kI * eI ))
+    print ("kD * eD = " + str( self.kD ) + " * " + str( eD ))
+    print ("= " + str( self.kD * eD ))
+    print ("")
+    print ("OUTPUTS:")
+    print ("omega: " + str( omega ))
+    print ("v    : " + str( v ))

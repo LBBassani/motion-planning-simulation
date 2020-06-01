@@ -20,7 +20,7 @@
 
 
 
-from math import *
+from math import sin, cos
 from ..utils import linalg2_util as linalg
 
 class ProximitySensorView:

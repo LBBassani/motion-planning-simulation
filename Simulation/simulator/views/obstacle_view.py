@@ -31,9 +31,6 @@ class ObstacleView:
   def draw_obstacle_to_frame( self ):
     obstacle = self.obstacle
 
-    # grab the obstacle pose
-    obstacle_pos, obstacle_theta = obstacle.pose.vunpack()
-
     # draw the obstacle to the frame
     obstacle_poly = obstacle.global_geometry.vertexes
     self.viewer.current_frame.add_polygons( [ obstacle_poly ],

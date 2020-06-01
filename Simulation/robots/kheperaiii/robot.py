@@ -17,14 +17,14 @@
 # Email mccrea.engineering@gmail.com for questions, comments, or to report bugs.
 
 
-from math import *
-from ...simulator.models.differential_drive_dynamics import *
-from ...simulator.models.polygon import *
-from ...simulator.models.pose import *
-from ...simulator.models.proximity_sensor import *
-from ...simulator.models.robot_supervisor_interface import *
-from ...simulator.models.supervisor import *
-from ...simulator.models.wheel_encoder import *
+from math import radians
+from ...simulator.models.differential_drive_dynamics import DifferentialDriveDynamics
+from ...simulator.models.polygon import Polygon
+from ...simulator.models.pose import Pose
+from ...simulator.models.proximity_sensor import ProximitySensor
+from ...simulator.models.robot_supervisor_interface import RobotSupervisorInterface
+from ...simulator.models.supervisor import Supervisor
+from ...simulator.models.wheel_encoder import WheelEncoder
 from ...simulator.models.robot import Robot
 from .controllers import *
 

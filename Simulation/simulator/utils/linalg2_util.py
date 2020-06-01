@@ -20,7 +20,7 @@
 
 
 
-from math import *
+from math import sin, cos, sqrt
 
 # get the sum of two vectors
 def add( a, b ):

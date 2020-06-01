@@ -23,16 +23,16 @@
 from math import *
 
 from ..utils import linalg2_util as linalg
-from .control_state import *
-from .pose import *
-from .supervisor_controller_interface import *
-from .supervisor_state_machine import *
+from .control_state import ControlState
+from .pose import Pose
+from .supervisor_controller_interface import SupervisorControllerInterface
+from .supervisor_state_machine import SupervisorStateMachine
 
-from .controllers.avoid_obstacles_controller import *
-from .controllers.follow_wall_controller import *
-from .controllers.go_to_angle_controller import *
-from .controllers.go_to_goal_controller import *
-from .controllers.gtg_and_ao_controller import *
+from .controllers.avoid_obstacles_controller import AvoidObstaclesController
+from .controllers.follow_wall_controller import FollowWallController
+from .controllers.go_to_angle_controller import GoToAngleController
+from .controllers.go_to_goal_controller import GoToGoalController
+from .controllers.gtg_and_ao_controller import GTGAndAOController
 
 # control parameters
 K3_TRANS_VEL_LIMIT = 0.3148     # m/s

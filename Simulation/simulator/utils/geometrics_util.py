@@ -20,7 +20,7 @@
 
 
 
-import linalg2_util as linalg
+from . import linalg2_util as linalg
 
 # a fast test to determine if two geometries might be touching
 def check_nearness( geometry1, geometry2 ):
