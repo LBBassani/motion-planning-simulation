@@ -236,11 +236,13 @@ class Viewer:
   def on_zoom_in( self, widget ):
     if self.painter.pixels_per_meter < ZOOM_MAX:
       self.painter.pixels_per_meter = self.painter.pixels_per_meter + 10
+      self.pixels_per_meter = self.painter.pixels_per_meter
       self.simulator.draw_world()
   
   def on_zoom_out( self, widget ):
     if self.painter.pixels_per_meter > ZOOM_MIN:
       self.painter.pixels_per_meter = self.painter.pixels_per_meter - 10
+      self.pixels_per_meter = self.painter.pixels_per_meter
       self.simulator.draw_world()
     
   def on_stop( self, widget ):
