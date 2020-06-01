@@ -18,14 +18,14 @@
 
 
 from math import radians
-from ...simulator.models.differential_drive_dynamics import DifferentialDriveDynamics
-from ...simulator.models.polygon import Polygon
-from ...simulator.models.pose import Pose
-from ...simulator.models.proximity_sensor import ProximitySensor
-from ...simulator.models.robot_supervisor_interface import RobotSupervisorInterface
-from ...simulator.models.supervisor import Supervisor
-from ...simulator.models.wheel_encoder import WheelEncoder
-from ...simulator.models.robot import Robot
+from srimulatorcore.models.differential_drive_dynamics import DifferentialDriveDynamics
+from srimulatorcore.models.polygon import Polygon
+from srimulatorcore.models.pose import Pose
+from srimulatorcore.models.proximity_sensor import ProximitySensor
+from srimulatorcore.models.robot_supervisor_interface import RobotSupervisorInterface
+from srimulatorcore.models.supervisor import Supervisor
+from srimulatorcore.models.wheel_encoder import WheelEncoder
+from srimulatorcore.models.robot import Robot
 from .controllers import *
 
 # Khepera III Properties

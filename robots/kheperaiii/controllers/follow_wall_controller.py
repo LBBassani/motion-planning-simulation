@@ -26,10 +26,10 @@ FWDIR_RIGHT = 1
 
 from math import atan2
 
-from ....models.control_state import *
-from ....models.controllers.follow_wall_controller import FollowWallController
-from ....utils import linalg2_util as linalg
-from ....sim_exceptions.goal_reached_exception import GoalReachedException
+from srimulatorcore.models.control_state import *
+from srimulatorcore.models.controllers.follow_wall_controller import FollowWallController
+from srimulatorcore.utils import linalg2_util as linalg
+from srimulatorcore.sim_exceptions.goal_reached_exception import GoalReachedException
 
 class KheperaiiiFollowWallController(FollowWallController):
 
