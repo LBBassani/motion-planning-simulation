@@ -30,7 +30,9 @@ from painter import *
 
 DEFAULT_VIEW_PIX_W = 400    # pixels
 DEFAULT_VIEW_PIX_H = 400    # pixels
-DEFAULT_ZOOM = 100          # pixels per meter
+DEFAULT_ZOOM = 50          # pixels per meter
+ZOOM_MAX = 150
+ZOOM_MIN = 30
 
 # user response codes for file chooser dialog buttons
 LS_DIALOG_RESPONSE_CANCEL = 1
@@ -128,6 +130,22 @@ class Viewer:
     self._decorate_draw_invisibles_button_inactive()
     self.button_draw_invisibles.set_image_position( gtk.POS_LEFT )
     self.button_draw_invisibles.connect( 'clicked', self.on_draw_invisibles )
+
+    # build the zoom buttons
+    self.button_zoom_in = gtk.Button( 'Zoom In' )
+    zoom_in_image = gtk.Image()
+    zoom_in_image.set_from_stock( gtk.STOCK_ZOOM_IN, gtk.ICON_SIZE_BUTTON )
+    self.button_zoom_in.set_image( zoom_in_image )
+    self.button_zoom_in.set_image_position( gtk.POS_LEFT )
+    self.button_zoom_in.connect( 'clicked', self.on_zoom_in )
+
+    self.button_zoom_out = gtk.Button( 'Zoom Out' )
+    zoom_out_image = gtk.Image()
+    zoom_out_image.set_from_stock( gtk.STOCK_ZOOM_OUT, gtk.ICON_SIZE_BUTTON )
+    self.button_zoom_out.set_image( zoom_out_image )
+    self.button_zoom_out.set_image_position( gtk.POS_LEFT )
+    self.button_zoom_out.connect( 'clicked', self.on_zoom_out )
+
     
     # == lay out the window
     
@@ -145,8 +163,10 @@ class Viewer:
     map_controls_box.pack_start( self.button_random_map, False, False )
     
     # pack the invisibles button
-    invisibles_button_box = gtk.HBox()
+    invisibles_button_box = gtk.HBox( spacing = 5 )
     invisibles_button_box.pack_start( self.button_draw_invisibles, False, False )
+    invisibles_button_box.pack_start( self.button_zoom_in, False, False )
+    invisibles_button_box.pack_start( self.button_zoom_out, False, False)
     
     # align the controls
     sim_controls_alignment = gtk.Alignment( 0.5, 0.0, 0.0, 1.0 )
@@ -178,8 +198,8 @@ class Viewer:
     self.current_frame = Frame()
     
     
-  def draw_frame( self ):
-    self.drawing_area.queue_draw_area( 0, 0, self.view_width_pixels, self.view_height_pixels )
+  def draw_frame( self , x = 0 , y = 0):
+    self.drawing_area.queue_draw_area( x, y, self.view_width_pixels, self.view_height_pixels )
     
     
   def control_panel_state_init( self ):
@@ -212,7 +232,16 @@ class Viewer:
   # EVENT HANDLERS:
   def on_play( self, widget ):
     self.simulator.play_sim()
-    
+
+  def on_zoom_in( self, widget ):
+    if self.painter.pixels_per_meter < ZOOM_MAX:
+      self.painter.pixels_per_meter = self.painter.pixels_per_meter + 10
+      self.simulator.draw_world()
+  
+  def on_zoom_out( self, widget ):
+    if self.painter.pixels_per_meter > ZOOM_MIN:
+      self.painter.pixels_per_meter = self.painter.pixels_per_meter - 10
+      self.simulator.draw_world()
     
   def on_stop( self, widget ):
     self.simulator.pause_sim()
