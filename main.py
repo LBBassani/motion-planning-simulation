@@ -1,7 +1,7 @@
 
 
 from srimulatorcore.rimulator import Rimulator
-from robots.kheperaiii.robot import Kheperaiii
+from srimulatorcore.sobots_samples.kheperaiii.kheperaiii import Kheperaiii
 import threading
 
 rimulator = Rimulator([(Kheperaiii, (0.5, 0.3)), (Kheperaiii, (-0.5, -0.3)) ])
