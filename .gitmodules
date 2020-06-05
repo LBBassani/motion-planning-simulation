@@ -1,4 +1,4 @@
 [submodule "sobot-rimulator-core"]
-	path = sobot-rimulator-core
+	path = rimulatorcore
 	url = https://github.com/LBBassani/sobot-rimulator-core.git
 	branch = master
